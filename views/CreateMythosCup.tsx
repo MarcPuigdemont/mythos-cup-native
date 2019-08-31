@@ -1,24 +1,28 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-elements';
+import { Input, Button, Text } from 'react-native-elements';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    alignSelf: "stretch",
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     flexDirection: 'column',
+    padding: 20,
+    backgroundColor: '#fff',
   },
-  title: {
-    marginTop: 20,
-  }
+  input: {
+    marginBottom: 30,
+  },
 });
 
 const CreateMythosCup = (props) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title} h3>CreateMythosCup</Text>    
+      <Input containerStyle={styles.input} label='Which scenario are you playing' />
+      <Input containerStyle={styles.input} label='Which difficulty are you playing on' />
+      <Button title="Create" />
     </View>
   );
 };
