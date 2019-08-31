@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
+import { useMappedState } from 'redux-react-hook';
 
 import MythosListItemButtons from '../components/MythosListItemButtons';
 import ICONS from '../utils/icons';
@@ -47,6 +48,8 @@ const styles = StyleSheet.create({
 
 const MythosCupsList = (props) => {
   const { navigate } = props.navigation;
+  const mapState = state => state.cups;
+  let cups = useMappedState(mapState) || [];
   return (
     <View style={styles.container}>
       <View style={styles.list}>

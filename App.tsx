@@ -1,12 +1,16 @@
 import React from 'react';
 import { ThemeProvider } from 'react-native-elements';
 import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
+import { StoreContext } from 'redux-react-hook';
 import { Ionicons } from '@expo/vector-icons';
 
 import MythosCupsList from './views/MythosCupsList';
 import CreateMythosCup from './views/CreateMythosCup';
 import Settings from './views/Settings';
 import PlayMythosCup from './views/Play';
+
+import initStore from './utils/store';
+import { loadState, saveState } from './utils/localStorage';
 
 const theme = {
   Button: {
@@ -60,8 +64,18 @@ const MainNavigator = createBottomTabNavigator({
 
 const App = createAppContainer(MainNavigator);
 
+const initialState = { cups: [] }; // loadState();
+const store = initStore(initialState);
+store.subscribe(() => {
+  saveState({
+    cups: store.getState().cups
+  });
+});
+
 export default () => (
   <ThemeProvider theme={theme}>
-    <App />
+    <StoreContext.Provider value={store}>
+      <App />
+    </StoreContext.Provider>
   </ThemeProvider>
 );

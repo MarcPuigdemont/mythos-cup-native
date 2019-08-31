@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Input, Button, Text } from 'react-native-elements';
+import { useDispatch } from 'redux-react-hook';
+
+import { addCup } from '../actions/cups';
 
 import CreateMythosCupIcons from '../components/CreateMythosCupIcons';
 
@@ -29,13 +32,25 @@ const styles = StyleSheet.create({
 });
 
 const CreateMythosCup = (props) => {
+  const { navigate } = props.navigation;
+  const [ campaign, setCampaign ] = useState('');
+  const [ difficulty, setDifficulty ] = useState('');
+  const [ icon, selectIcon ] = useState(0);
+  const dispatch = useDispatch();
+  const handleAddCup = useCallback(() => {
+    dispatch(addCup({ campaign, difficulty, icon }));
+    setCampaign('');
+    setDifficulty('');
+    selectIcon(0);
+    navigate('MythosCupsList');
+  }, [campaign, difficulty, icon]);
   return (
     <View style={styles.container}>
-      <Input containerStyle={styles.input} label='Which scenario are you playing' />
-      <Input containerStyle={styles.input} label='Which difficulty are you playing on' />
+      <Input containerStyle={styles.input} label='Which scenario are you playing' onChangeText={setCampaign} value={campaign} />
+      <Input containerStyle={styles.input} label='Which difficulty are you playing on' onChangeText={setDifficulty} value={difficulty} />
       <Text style={styles.text}>Give it an icon to represent the campaign</Text>
-      <CreateMythosCupIcons />
-      <Button title="Create" />
+      <CreateMythosCupIcons selected={icon} onSelect={selectIcon} />
+      <Button title="Create" onPress={handleAddCup} />
     </View>
   );
 };

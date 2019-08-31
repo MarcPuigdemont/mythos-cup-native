@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View, TouchableHighlight  } from 'react-native';
 import { Image } from 'react-native-elements';
 import ICONS from '../utils/icons';
@@ -21,14 +21,13 @@ const styles = StyleSheet.create({
   });
 
 const MythosListItemButtons = (props) => {
-  const [ selected, selectIcon ] = useState(0);
   return (
     <View style={styles.container}>
       {
         ICONS.map((icon, index) => {
-          const opacity = selected === index ? 1 : 0.4;
+          const opacity = props.selected === index ? 1 : 0.4;
           return (
-            <TouchableHighlight key={index} onPress={() => selectIcon(index)} underlayColor={'#fff'}>
+            <TouchableHighlight key={index} onPress={() => props.onSelect(index)} underlayColor={'#fff'}>
               <Image
                 source={icon}
                 style={{ ...styles.icon, ...{ opacity }}}
