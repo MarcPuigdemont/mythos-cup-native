@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import MythosCupsList from './views/MythosCupsList';
 import CreateMythosCup from './views/CreateMythosCup';
+import EditMythosCup from './views/EditMythosCup';
 import Settings from './views/Settings';
 import PlayMythosCup from './views/Play';
 
@@ -26,12 +27,14 @@ const theme = {
 const routeLabel = {
   'MythosCupsList': 'Mythos Cups',
   'CreateMythosCup': 'Create',
+  'EditMythosCup': 'Edit',
   'Settings': 'Settings'
 };
 
 const ListNavigator = createStackNavigator({
   MythosCupsList: { screen: MythosCupsList },
   PlayMythosCup: { screen: PlayMythosCup },
+  EditMythosCup: { screen: EditMythosCup },
 });
 
 const MainNavigator = createBottomTabNavigator({
@@ -60,11 +63,32 @@ const MainNavigator = createBottomTabNavigator({
     activeTintColor: '#673ab7',
     inactiveTintColor: 'gray',
   },
+  initialRouteName: 'MythosCupsList',
 });
 
 const App = createAppContainer(MainNavigator);
 
-const initialState = { cups: [] }; // loadState();
+const cups = [
+  {
+    id: '1',
+    campaign: 'Fest for Umorhoth',
+    difficulty: 'Easy',
+    icon: 2,
+  },
+  {
+    id: '2',
+    campaign: 'Fest for Umorhoth',
+    difficulty: 'Not that hard',
+    icon: 4,
+  },
+  {
+    id: '3',
+    campaign: 'Whispers in the dark',
+    difficulty: 'Hard',
+    icon: 7,
+  },
+];
+const initialState = { cups }; //loadState();
 const store = initStore(initialState);
 store.subscribe(() => {
   saveState({

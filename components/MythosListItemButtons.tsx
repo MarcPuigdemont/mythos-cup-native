@@ -26,11 +26,11 @@ const MythosListItemButtons = (props) => {
         onPress={props.edit} />
       <Icon
         containerStyle={styles.button}
-        name="videogame-asset"
+        name="settings"
         type='vector-icons'
         size={iconSize}
         color={iconColor}
-        onPress={props.play} />
+        onPress={props.tokens} />
     </View>
   );
 }
