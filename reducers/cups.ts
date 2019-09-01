@@ -1,6 +1,7 @@
 import { ADD_CUP, UPDATE_CUP, REMOVE_CUP, REMOVE_ALL } from '../actions';
+import { ICup } from '../interfaces';
 
-export default function(state = [], action) {
+export default function(state: ICup[] = [], action: { type: string, cup: ICup }) {
   const { type, cup } = action;
 
   switch (type) {

@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Image, Text } from 'react-native-elements';
 
+import { IToken } from '../interfaces';
+
 import TOKENS from '../utils/tokens';
 
 const iconSize = 84;
@@ -33,7 +35,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const Token = (props) => {
+interface Props {
+  token: IToken;
+  onChange: (value: number) => void;
+}
+const Token = (props: Props) => {
   const { token } = props;
   return (
     <View style={styles.container}>

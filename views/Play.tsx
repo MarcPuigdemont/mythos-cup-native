@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const Play = (props) => {
+const Play = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title} h3>Play</Text>    

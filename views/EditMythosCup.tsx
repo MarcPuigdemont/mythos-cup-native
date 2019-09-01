@@ -1,12 +1,14 @@
 import React from 'react';
-
-import { updateCup } from '../actions/cups';
-import MythosCupForm from '../components/MythosCupForm';
 import { useMappedState } from 'redux-react-hook';
 
+import { ICup } from '../interfaces';
+
+import MythosCupForm from '../components/MythosCupForm';
+
+import { updateCup } from '../actions/cups';
+
 const EditMythosCup = (props) => {
-  const mapState = state => state.currentCup;
-  let cup = useMappedState(mapState) || {};
+  let cup: ICup = useMappedState(state => state.currentCup) || {};
   return (
     <MythosCupForm action={updateCup} cup={cup} {...props}/>
   );

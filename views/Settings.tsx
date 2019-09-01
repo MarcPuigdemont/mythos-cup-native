@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const Settings = (props) => {
+const Settings = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title} h3>Settings</Text>    

@@ -4,6 +4,8 @@ import { createBottomTabNavigator, createAppContainer, createStackNavigator } fr
 import { StoreContext } from 'redux-react-hook';
 import { Ionicons } from '@expo/vector-icons';
 
+import { ICup } from './interfaces';
+
 import MythosCupsList from './views/MythosCupsList';
 import CreateMythosCup from './views/CreateMythosCup';
 import EditMythosCup from './views/EditMythosCup';
@@ -70,24 +72,27 @@ const MainNavigator = createBottomTabNavigator({
 
 const App = createAppContainer(MainNavigator);
 
-const cups = [
+const cups: ICup[] = [
   {
     id: '1',
     campaign: 'Fest for Umorhoth',
     difficulty: 'Easy',
     icon: 2,
+    tokens: null,
   },
   {
     id: '2',
     campaign: 'Fest for Umorhoth',
     difficulty: 'Not that hard',
     icon: 4,
+    tokens: null,
   },
   {
     id: '3',
     campaign: 'Whispers in the dark',
     difficulty: 'Hard',
     icon: 7,
+    tokens: null,
   },
 ];
 const initialState = { cups }; //loadState();

@@ -3,6 +3,8 @@ import { StyleSheet, View  } from 'react-native';
 import { Image, Text } from 'react-native-elements';
 import { useMappedState, useDispatch } from 'redux-react-hook';
 
+import { ICup, IToken } from '../interfaces';
+
 import ICONS from '../utils/icons';
 
 import Token from '../components/Token';
@@ -12,47 +14,41 @@ import { setCurrentCup } from '../actions/currentCup';
 
 const iconSize = 64;
 const styles = StyleSheet.create({
-    container: {
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      marginTop: 18,
-    },
-    cupContainer: {
-      flexDirection: 'row',
-      marginLeft: 20,
-    },
-    cupTextContainer: {
-      flexDirection: 'column',
-    },
-    cupCampaign: {
-      fontSize: 26,
-    },
-    cupDifficulty: {
-      fontSize: 22,
-      color: '#ccc'
-    },
-    tokensContainer: {
-      flexDirection: 'row',
-      alignSelf: 'center',
-      justifyContent: 'center',
-      flexWrap: "wrap",
-      marginTop: 10,
-    },
-    icon: {
-      backgroundColor: '#fff',
-      marginRight: 10,
-      maxWidth: iconSize,
-      maxHeight: iconSize,
-    }
-  });
-
-  interface Token {
-    name: string;
-    image: string;
-    count: number;
+  container: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    marginTop: 18,
+  },
+  cupContainer: {
+    flexDirection: 'row',
+    marginLeft: 20,
+  },
+  cupTextContainer: {
+    flexDirection: 'column',
+  },
+  cupCampaign: {
+    fontSize: 26,
+  },
+  cupDifficulty: {
+    fontSize: 22,
+    color: '#ccc'
+  },
+  tokensContainer: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    flexWrap: "wrap",
+    marginTop: 10,
+  },
+  icon: {
+    backgroundColor: '#fff',
+    marginRight: 10,
+    maxWidth: iconSize,
+    maxHeight: iconSize,
   }
+});
 
-const initialTokens: Array<Token> = [
+const initialTokens: IToken[] = [
   { name: 'Spawn clue', image: 'clue', count: 0 },
   { name: 'Spread doom', image: 'doom', count: 0 },
   { name: 'Portal bursts', image: 'portal', count: 0 },
@@ -62,15 +58,15 @@ const initialTokens: Array<Token> = [
   { name: 'Empty', image: 'empty', count: 0 }
 ];
 
-const ConfigureMythosCup = (props) => {
-  const cup = useMappedState( s => s.currentCup) || {};
+const ConfigureMythosCup = () => {
+  const cup: ICup = useMappedState(state => state.currentCup) || {};
   if (!cup.tokens) cup.tokens = initialTokens;
   
   const dispatch = useDispatch();
   const updateToken = useCallback((index: number, value: number) => {
     const count = Math.max(0, value);
     const newCup = { ...cup };
-    newCup.tokens = cup.tokens.map((t: Token, i) => i === index ? { ...t, count } : t);
+    newCup.tokens = cup.tokens.map((t, i) => i === index ? { ...t, count } : t);
     dispatch(updateCup(newCup));
     dispatch(setCurrentCup(newCup));
   }, [cup]);
@@ -86,7 +82,7 @@ const ConfigureMythosCup = (props) => {
       </View>
       <View style={styles.tokensContainer}>
         {
-          cup.tokens.map((token: Token, index) => {
+          cup.tokens.map((token, index) => {
             return (
               <Token
                 key={index}

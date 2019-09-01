@@ -15,7 +15,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const MythosListItemButtons = (props) => {
+interface Props {
+  edit: () => void;
+  tokens: () => void;
+}
+const MythosListItemButtons = (props: Props) => {
   return (
     <View style={styles.container}>
       <Icon

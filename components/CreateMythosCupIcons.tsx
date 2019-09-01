@@ -5,22 +5,26 @@ import ICONS from '../utils/icons';
 
 const iconSize = 36;
 const styles = StyleSheet.create({
-    container: {
-      flexDirection: 'row',
-      alignSelf: 'center',
-      justifyContent: 'center',
-      flexWrap: "wrap",
-      marginBottom: 20,
-    },
-    icon: {
-      backgroundColor: '#fff',
-      margin: 5,
-      maxWidth: iconSize,
-      maxHeight: iconSize,
-    }
-  });
+  container: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    flexWrap: "wrap",
+    marginBottom: 20,
+  },
+  icon: {
+    backgroundColor: '#fff',
+    margin: 5,
+    maxWidth: iconSize,
+    maxHeight: iconSize,
+  }
+});
 
-const MythosListItemButtons = (props) => {
+interface Props {
+  selected: number;
+  onSelect: (index: number) => void;
+}
+const MythosListItemButtons = (props: Props) => {
   return (
     <View style={styles.container}>
       {

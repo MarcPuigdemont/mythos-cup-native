@@ -3,6 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import { Input, Button, Text } from 'react-native-elements';
 import { useDispatch } from 'redux-react-hook';
 
+import { ICup } from '../interfaces';
+
 import CreateMythosCupIcons from '../components/CreateMythosCupIcons';
 
 const styles = StyleSheet.create({
@@ -29,7 +31,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const MythosCupForm = (props) => {
+interface Props {
+  navigation: { navigate: Function };
+  cup: ICup;
+  action: Function;
+};
+const MythosCupForm = (props: Props) => {
   const { navigate } = props.navigation;
   const [ campaign, setCampaign ] = useState(props.cup ? props.cup.campaign : '');
   const [ difficulty, setDifficulty ] = useState(props.cup ? props.cup.difficulty : '');

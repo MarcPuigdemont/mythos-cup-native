@@ -3,8 +3,11 @@ import { StyleSheet, View, TouchableHighlight  } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { useMappedState, useDispatch } from 'redux-react-hook';
 
-import MythosListItemButtons from '../components/MythosListItemButtons';
+import { ICup } from '../interfaces';
+
 import ICONS from '../utils/icons';
+
+import MythosListItemButtons from '../components/MythosListItemButtons';
 import { setCurrentCup } from '../actions/currentCup';
 
 const styles = StyleSheet.create({
@@ -31,8 +34,7 @@ const styles = StyleSheet.create({
 
 const MythosCupsList = (props) => {
   const { navigate } = props.navigation;
-  const mapState = state => state.cups;
-  let cups = useMappedState(mapState) || [];
+  let cups: ICup[] = useMappedState(state => state.cups) || [];
   const dispatch = useDispatch();
   return (
     <View style={styles.container}>
