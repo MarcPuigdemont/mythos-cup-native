@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { StyleSheet, View  } from 'react-native';
 import { Image, Text } from 'react-native-elements';
 import { useMappedState, useDispatch } from 'redux-react-hook';
 
 import ICONS from '../utils/icons';
+
 import Token from '../components/Token';
+
+import { updateCup } from '../actions/cups';
+import { setCurrentCup } from '../actions/currentCup';
 
 const iconSize = 64;
 const styles = StyleSheet.create({
@@ -42,7 +46,13 @@ const styles = StyleSheet.create({
     }
   });
 
-const initialTokens = [
+  interface Token {
+    name: string;
+    image: string;
+    count: number;
+  }
+
+const initialTokens: Array<Token> = [
   { name: 'Spawn clue', image: 'clue', count: 0 },
   { name: 'Spread doom', image: 'doom', count: 0 },
   { name: 'Portal bursts', image: 'portal', count: 0 },
@@ -53,8 +63,18 @@ const initialTokens = [
 ];
 
 const ConfigureMythosCup = (props) => {
-  const mapState = state => state.currentCup;
-  let cup = useMappedState(mapState) || {};
+  const cup = useMappedState( s => s.currentCup) || {};
+  if (!cup.tokens) cup.tokens = initialTokens;
+  
+  const dispatch = useDispatch();
+  const updateToken = useCallback((index: number, value: number) => {
+    const count = Math.max(0, value);
+    const newCup = { ...cup };
+    newCup.tokens = cup.tokens.map((t: Token, i) => i === index ? { ...t, count } : t);
+    dispatch(updateCup(newCup));
+    dispatch(setCurrentCup(newCup));
+  }, [cup]);
+  
   return (
     <View style={styles.container}>
       <View style={styles.cupContainer}>
@@ -66,11 +86,12 @@ const ConfigureMythosCup = (props) => {
       </View>
       <View style={styles.tokensContainer}>
         {
-          initialTokens.map((token, index) => {
+          cup.tokens.map((token: Token, index) => {
             return (
               <Token
                 key={index}
                 token={token}
+                onChange={(val) => updateToken(index, val)}
               />
             )
           })

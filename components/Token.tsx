@@ -43,9 +43,17 @@ const Token = (props) => {
         style={styles.icon}
       />
       <View style={styles.controlsContainer}>
-        <Button title={'-'} buttonStyle={styles.button} />
+        <Button 
+          title={'-'}
+          buttonStyle={styles.button}
+          onPress={() => props.onChange(token.count - 1)}
+        />
         <Text style={styles.counter}>{token.count}</Text>
-        <Button title={'+'} buttonStyle={styles.button} />
+        <Button
+          title={'+'}
+          buttonStyle={styles.button}
+          onPress={() => props.onChange(token.count + 1)}
+        />
       </View>
     </View>
   );
