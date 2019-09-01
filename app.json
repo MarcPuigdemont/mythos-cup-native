@@ -25,6 +25,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "Arkham Horror third edition Mythos Cup project on React Native",
+    "githubUrl": "https://github.com/MarcPuigdemont/mythos-cup-native"
   }
 }
