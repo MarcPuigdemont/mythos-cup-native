@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import MythosCupsList from './views/MythosCupsList';
 import CreateMythosCup from './views/CreateMythosCup';
 import EditMythosCup from './views/EditMythosCup';
+import ConfigureMythosCup from './views/ConfigureMythosCup';
 import Settings from './views/Settings';
 import PlayMythosCup from './views/Play';
 
@@ -35,6 +36,7 @@ const ListNavigator = createStackNavigator({
   MythosCupsList: { screen: MythosCupsList },
   PlayMythosCup: { screen: PlayMythosCup },
   EditMythosCup: { screen: EditMythosCup },
+  ConfigureMythosCup: { screen: ConfigureMythosCup },
 });
 
 const MainNavigator = createBottomTabNavigator({

@@ -48,7 +48,7 @@ const MythosCupsList = (props) => {
                   rightElement={(
                     <MythosListItemButtons 
                       edit={() => { dispatch(setCurrentCup(cup)); navigate('EditMythosCup')}}
-                      tokens={() => navigate('Settings')} />
+                      tokens={() => { dispatch(setCurrentCup(cup)); navigate('ConfigureMythosCup')}} />
                   )}
                 />
               </TouchableHighlight>

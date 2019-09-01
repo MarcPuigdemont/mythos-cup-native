@@ -5,15 +5,15 @@ import { Icon } from 'react-native-elements';
 const iconSize = 32;
 const iconColor = '#aaa';
 const styles = StyleSheet.create({
-    container: {
-      flexDirection: 'row',
-      alignSelf: 'center',
-      justifyContent: 'flex-end',
-    },
-    button: {
-      marginLeft: 5,
-    }
-  });
+  container: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+    justifyContent: 'flex-end',
+  },
+  button: {
+    marginLeft: 5,
+  }
+});
 
 const MythosListItemButtons = (props) => {
   return (
