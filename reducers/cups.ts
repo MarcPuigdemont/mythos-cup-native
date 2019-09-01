@@ -1,8 +1,8 @@
-import { ADD_CUP, UPDATE_CUP, REMOVE_CUP, REMOVE_ALL } from '../actions';
+import { ADD_CUP, UPDATE_CUP, REMOVE_CUP, REMOVE_ALL, SET_CUPS } from '../actions';
 import { ICup } from '../interfaces';
 
-export default function(state: ICup[] = [], action: { type: string, cup: ICup }) {
-  const { type, cup } = action;
+export default function(state: ICup[] = [], action: { type: string, cup: ICup, cups: ICup[] }) {
+  const { type, cup, cups } = action;
 
   switch (type) {
     case ADD_CUP:
@@ -27,6 +27,8 @@ export default function(state: ICup[] = [], action: { type: string, cup: ICup })
       return state.filter(i => i.id !== cup.id);
     case REMOVE_ALL:
       return [];
+    case SET_CUPS:
+      return cups;
     default:
       return state;
   }

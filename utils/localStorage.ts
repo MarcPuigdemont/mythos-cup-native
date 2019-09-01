@@ -1,20 +1,23 @@
-export const loadState = () => {
+import { AsyncStorage } from 'react-native';
+
+export const loadState = async () => {
   try {
-    const serializedState = localStorage.getItem('state');
+    const serializedState = await AsyncStorage.getItem('@MythosCupNative:state');
     if (serializedState === null) {
       return {};
     }
     return JSON.parse(serializedState);
-  } catch (err) {
+  } catch (error) {
+    console.error('Error parsing state');
     return {};
   }
 };
 
-export const saveState = state => {
+export const saveState = async state => {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem('state', serializedState);
-  } catch {
-    // ignore write errors
+    await AsyncStorage.setItem('@MythosCupNative:state', serializedState);
+  } catch (error) {
+    console.error('Error saving state');
   }
 };

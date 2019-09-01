@@ -15,6 +15,7 @@ import PlayMythosCup from './views/Play';
 
 import initStore from './utils/store';
 import { loadState, saveState } from './utils/localStorage';
+import { setCups } from './actions/cups';
 
 const theme = {
   Button: {
@@ -95,12 +96,17 @@ const cups: ICup[] = [
     tokens: null,
   },
 ];
-const initialState = { cups }; //loadState();
+const initialState = { cups: [] }; 
 const store = initStore(initialState);
 store.subscribe(() => {
   saveState({
     cups: store.getState().cups
   });
+});
+loadState().then(state => {
+  if (state.cups) {
+    store.dispatch(setCups(state.cups));
+  }
 });
 
 export default () => (

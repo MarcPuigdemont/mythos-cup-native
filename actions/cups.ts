@@ -1,4 +1,4 @@
-import { ADD_CUP, UPDATE_CUP, REMOVE_CUP, REMOVE_ALL } from '.';
+import { ADD_CUP, UPDATE_CUP, REMOVE_CUP, REMOVE_ALL, SET_CUPS } from '.';
 import { ICup } from '../interfaces';
 
 export function addCup(cup: ICup) {
@@ -25,5 +25,12 @@ export function removeCup(cup: ICup) {
 export function removeAll() {
   return {
     type: REMOVE_ALL
+  };
+}
+
+export function setCups(cups: ICup[]) {
+  return {
+    type: SET_CUPS,
+    cups
   };
 }
