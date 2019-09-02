@@ -42,7 +42,7 @@ const MythosCupsList = (props) => {
         {
           cups.map((cup, i) => {
             return (
-              <TouchableHighlight key={i} onPress={() => navigate('PlayMythosCup')} underlayColor={'#fff'}>
+              <TouchableHighlight key={i} onPress={() => { dispatch(setCurrentCup(cup)); navigate('PlayMythosCup'); }} underlayColor={'#fff'}>
                 <ListItem
                   leftAvatar={{ source: ICONS[cup.icon], avatarStyle: styles.avatar, rounded: false }}
                   title={cup.campaign}
