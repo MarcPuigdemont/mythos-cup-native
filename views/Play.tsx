@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Image, Text } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useMappedState, useDispatch } from 'redux-react-hook';
@@ -10,7 +10,6 @@ import ICONS from '../utils/icons';
 import TokenPlay from '../components/TokenPlay';
 import { updateCup } from '../actions/cups';
 
-const screenWidth = Math.round(Dimensions.get('window').width);
 const iconSize = 64;
 const styles = StyleSheet.create({
   container: {
@@ -58,8 +57,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 1,
     
-    minWidth: screenWidth - 40,
-    minHeight: screenWidth - 40,
+    minWidth: '100%',
+    minHeight: '100%',
   },
   icon: {
     backgroundColor: '#fff',
