@@ -24,7 +24,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.marcpuigdemont.mythoscupnative"
+    },
+    "android": {
+      "package": "com.marcpuigdemont.mythoscupnative"
     },
     "description": "Arkham Horror third edition Mythos Cup project on React Native",
     "githubUrl": "https://github.com/MarcPuigdemont/mythos-cup-native"
