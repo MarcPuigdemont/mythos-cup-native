@@ -30,8 +30,13 @@ npm run ios
 npm run web
 ```
 
+### Test the project
+For now, there is only unit test. Run it via:
+
+```
+npm test
+```
+
 ## Compiled Android version
 
-You can find the compiled version thorugh expo here:
-
-[Here](https://expo.io/@fraijilverto/mythos-cup-native)
+You can find the compiled version thorugh expo [Here](https://expo.io/@fraijilverto/mythos-cup-native)

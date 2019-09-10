@@ -5,7 +5,7 @@ import { useDispatch } from 'redux-react-hook';
 
 import { ICup } from '../interfaces';
 
-import CreateMythosCupIcons from '../components/CreateMythosCupIcons';
+import CreateMythosCupIcons from './CreateMythosCupIcons';
 
 const styles = StyleSheet.create({
   container: {

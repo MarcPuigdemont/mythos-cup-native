@@ -7,6 +7,9 @@ const defaultCups: ICup[] = [
     difficulty: 'Easy',
     icon: 2,
     tokens: null,
+    revealedTokens: null,
+    unRevealedTokens: null,
+    playTokens: null,
   },
   {
     id: '2',
@@ -14,6 +17,9 @@ const defaultCups: ICup[] = [
     difficulty: 'Not that hard',
     icon: 4,
     tokens: null,
+    revealedTokens: null,
+    unRevealedTokens: null,
+    playTokens: null,
   },
   {
     id: '3',
@@ -21,6 +27,9 @@ const defaultCups: ICup[] = [
     difficulty: 'Hard',
     icon: 7,
     tokens: null,
+    revealedTokens: null,
+    unRevealedTokens: null,
+    playTokens: null,
   },
 ];
 

@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MythosCupForm renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "alignSelf": "stretch",
+      "backgroundColor": "#fff",
+      "flex": 1,
+      "flexDirection": "column",
+      "justifyContent": "center",
+      "padding": 20,
+    }
+  }
+>
+  <ForwardRef(Themed.Input)
+    containerStyle={
+      Object {
+        "marginBottom": 30,
+      }
+    }
+    label="Which scenario are you playing"
+    onChangeText={[Function]}
+    value="Fest for Umorhoth"
+  />
+  <ForwardRef(Themed.Input)
+    containerStyle={
+      Object {
+        "marginBottom": 30,
+      }
+    }
+    label="Which difficulty are you playing on"
+    onChangeText={[Function]}
+    value="Easy"
+  />
+  <Themed.Text
+    style={
+      Object {
+        "alignSelf": "flex-start",
+        "color": "#86939e",
+        "fontFamily": "sans-serif",
+        "fontSize": 16,
+        "fontWeight": "bold",
+        "marginBottom": 20,
+        "marginLeft": 10,
+      }
+    }
+  >
+    Give it an icon to represent the campaign
+  </Themed.Text>
+  <CreateMythosCupIconsMock
+    onSelect={[Function]}
+    selected={2}
+  />
+  <ForwardRef(Themed.Button)
+    onPress={[Function]}
+    title="Edit"
+  />
+</View>
+`;

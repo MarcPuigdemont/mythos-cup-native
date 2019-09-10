@@ -24,7 +24,7 @@ interface Props {
   selected: number;
   onSelect: (index: number) => void;
 }
-const MythosListItemButtons = (props: Props) => {
+const CreateMythosCupIcons = (props: Props) => {
   return (
     <View style={styles.container}>
       {
@@ -45,4 +45,4 @@ const MythosListItemButtons = (props: Props) => {
   );
 }
 
-export default MythosListItemButtons;
+export default CreateMythosCupIcons;
