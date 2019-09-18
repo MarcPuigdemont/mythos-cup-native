@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TokenPlay renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "marginLeft": 0,
+      "marginVertical": 5,
+    }
+  }
+>
+  <ForwardRef(Themed.Image)
+    source={1}
+    style={
+      Object {
+        "height": 20,
+        "margin": 5,
+        "opacity": 1,
+        "width": 20,
+      }
+    }
+  />
+</View>
+`;
