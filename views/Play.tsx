@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Image, Text } from 'react-native-elements';
+import { Button, Image, Text } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useMappedState, useDispatch } from 'redux-react-hook';
 
-import { ICup, IToken } from '../interfaces';
+import { ICup, IToken, ITokenPlay } from '../interfaces';
 
 import ICONS from '../utils/icons';
 import TokenPlay from '../components/TokenPlay';
@@ -85,11 +85,18 @@ const styles = StyleSheet.create({
   revealText: {
     marginTop: 20,
     fontSize: 24,
+  },
+  controlsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingTop: 20,
+  },
+  controlsButton: {
+    minWidth: 120,
   }
 });
 
 const Play = () => {
-  const dispatch = useDispatch();
   const cup: ICup = useMappedState(state => state.currentCup) || {};
   if (!cup.tokens) {
     return (
@@ -122,25 +129,40 @@ const Play = () => {
     }
   }, [cup]);
 
+  const dispatch = useDispatch();
+  const commitTokens = (newUnRevealedTokens: ITokenPlay[], newRevealedTokens: ITokenPlay[]) => {
+    setUnRevealedTokens(newUnRevealedTokens);
+    setRevealedTokens(newRevealedTokens);
+    dispatch(
+      updateCup({
+        ...cup,
+        unRevealedTokens: newUnRevealedTokens,
+        revealedTokens: newRevealedTokens
+      })
+    );
+  };
+
   const reveal = useCallback(() => {
     if (unRevealedTokens.length == 0) {
-      setUnRevealedTokens([...cup.playTokens]);
-      setRevealedTokens([]);
+      commitTokens([...cup.playTokens], []);
     } else {
       const randomNumber = Math.floor(Math.random() * unRevealedTokens.length);
       const token = unRevealedTokens[randomNumber];
       const newUnRevealedTokens = unRevealedTokens.filter(t => t !== token);
       const newRevealedTokens = [...revealedTokens, token];
-      setUnRevealedTokens(newUnRevealedTokens);
-      setRevealedTokens(newRevealedTokens);
-      dispatch(
-        updateCup({
-          ...cup,
-          unRevealedTokens: newUnRevealedTokens,
-          revealedTokens: newRevealedTokens
-        })
-      );
+      commitTokens(newUnRevealedTokens, newRevealedTokens);
     }
+  }, [cup, unRevealedTokens, revealedTokens]);
+
+  const undo = useCallback(() => {
+    if (revealedTokens.length === 0) {
+      return;
+    }
+
+    const newRevealedTokens = revealedTokens;
+    const token = newRevealedTokens.pop();
+    const newUnRevealedTokens = [...unRevealedTokens, token];
+    commitTokens(newUnRevealedTokens, newRevealedTokens);
   }, [cup, unRevealedTokens, revealedTokens]);
 
   return (
@@ -165,6 +187,9 @@ const Play = () => {
             <TokenPlay token={revealedTokens[revealedTokens.length - 1]} size={80} />
           )}
         </TouchableOpacity >
+      </View>
+      <View style={styles.controlsContainer}>
+        <Button title={'Undo'} containerStyle={styles.controlsButton} onPress={undo} />
       </View>
     </View>
   );
