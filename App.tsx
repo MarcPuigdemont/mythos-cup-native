@@ -4,14 +4,14 @@ import { createBottomTabNavigator, createAppContainer, createStackNavigator } fr
 import { StoreContext } from 'redux-react-hook';
 import { Ionicons } from '@expo/vector-icons';
 
-import { ICup } from './interfaces';
-
 import MythosCupsList from './views/MythosCupsList';
 import CreateMythosCup from './views/CreateMythosCup';
 import EditMythosCup from './views/EditMythosCup';
 import ConfigureMythosCup from './views/ConfigureMythosCup';
 import Settings from './views/Settings';
 import PlayMythosCup from './views/Play';
+import PicturesGallery from './views/PicturesGallery';
+import TakePicture from './views/TakePicture';
 
 import initStore from './utils/store';
 import { loadState, saveState } from './utils/localStorage';
@@ -40,6 +40,8 @@ const ListNavigator = createStackNavigator({
   PlayMythosCup: { screen: PlayMythosCup },
   EditMythosCup: { screen: EditMythosCup },
   ConfigureMythosCup: { screen: ConfigureMythosCup },
+  PicturesGallery: { screen: PicturesGallery },
+  TakePicture: { screen: TakePicture },
 });
 
 const MainNavigator = createBottomTabNavigator({

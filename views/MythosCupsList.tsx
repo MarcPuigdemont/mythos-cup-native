@@ -32,7 +32,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const MythosCupsList = (props) => {
+interface Props {
+  navigation: { navigate: Function };
+}
+const MythosCupsList = (props: Props) => {
   const { navigate } = props.navigation;
   let cups: ICup[] = useMappedState(state => state.cups) || [];
   const dispatch = useDispatch();

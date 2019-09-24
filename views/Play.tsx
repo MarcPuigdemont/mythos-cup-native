@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Button, Image, Text } from 'react-native-elements';
+import { Button, Text } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useMappedState, useDispatch } from 'redux-react-hook';
 
 import { ICup, IToken, ITokenPlay } from '../interfaces';
 
-import ICONS from '../utils/icons';
+import CupHeader from '../components/CupHeader';
 import TokenPlay from '../components/TokenPlay';
 import { updateCup } from '../actions/cups';
 
-const iconSize = 64;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -23,20 +22,6 @@ const styles = StyleSheet.create({
   noTokens: {
     marginHorizontal: 20,
     fontSize: 32,
-  },
-  cupContainer: {
-    flexDirection: 'row',
-    marginBottom: 20,
-  },
-  cupTextContainer: {
-    flexDirection: 'column',
-  },
-  cupCampaign: {
-    fontSize: 26,
-  },
-  cupDifficulty: {
-    fontSize: 22,
-    color: '#ccc'
   },
   tokensContainer: {
     flex: 1,
@@ -59,12 +44,6 @@ const styles = StyleSheet.create({
     
     minWidth: '100%',
     minHeight: '100%',
-  },
-  icon: {
-    backgroundColor: '#fff',
-    marginRight: 10,
-    maxWidth: iconSize,
-    maxHeight: iconSize,
   },
   revealedTokensContainer: {
     flexDirection: 'row',
@@ -96,7 +75,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const Play = () => {
+interface Props {
+  navigation: { navigate: Function };
+}
+const Play = (props) => {
+  const { navigate } = props.navigation;
   const cup: ICup = useMappedState(state => state.currentCup) || {};
   if (!cup.tokens) {
     return (
@@ -167,13 +150,7 @@ const Play = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.cupContainer}>
-        <Image source={ICONS[cup.icon]} style={styles.icon} />
-        <View style={styles.cupTextContainer}>
-          <Text style={styles.cupCampaign}>{cup.campaign}</Text>
-          <Text style={styles.cupDifficulty}>{cup.difficulty}</Text>
-        </View>
-      </View>
+      <CupHeader cup={cup} />
       <View style={styles.revealedTokensContainer}>
         { revealedTokens.map((t: IToken, i) => <TokenPlay key={i} token={t} size={40} marginLeft={-35} />) }
       </View>
@@ -190,6 +167,7 @@ const Play = () => {
       </View>
       <View style={styles.controlsContainer}>
         <Button title={'Undo'} containerStyle={styles.controlsButton} onPress={undo} />
+        <Button title={'Pictures'} containerStyle={styles.controlsButton} onPress={() => navigate('PicturesGallery')}/>
       </View>
     </View>
   );
