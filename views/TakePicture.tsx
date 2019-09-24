@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useMappedState } from 'redux-react-hook';
 import {
   StyleSheet,
@@ -6,6 +6,7 @@ import {
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import { Text } from 'react-native-elements';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions'
@@ -55,13 +56,29 @@ interface Props {
 const TakePicture = (props: Props) => {
   const { navigation } = props;
   const cup: ICup = useMappedState(state => state.currentCup) || {};
+  let camera: Camera = null;
+  
   const [ hasCameraPermission, setCameraPermission ] = useState(false);
   useEffect(() => {
     Permissions.askAsync(Permissions.CAMERA).then((result) => {
       setCameraPermission(result.status === 'granted');
     });
   },[]);
-  let camera: Camera = null;
+  
+  let disableLogic = false;
+  const takePictureAndGoBack = useCallback((camera) => {
+    if (!disableLogic) {
+      disableLogic = true;
+      takePicture(camera)
+        .then((data: CapturedPicture) => saveImage(data.uri, cup.id))
+        .then(() => {
+          // remove this and pictures gallery from stack and navigate again to pictures gallery to update it
+          navigation.dispatch(NavigationActions.back());
+          navigation.dispatch(NavigationActions.back());
+          navigation.dispatch(NavigationActions.navigate({ routeName: 'PicturesGallery' }));
+        });
+    }
+  }, [navigation, disableLogic]);
 
   if (hasCameraPermission === null) {
     return <View />;
@@ -80,11 +97,7 @@ const TakePicture = (props: Props) => {
             style={ styles.buttonContainer }
           >
             <TouchableOpacity
-              onPress={() => 
-                takePicture(camera)
-                  .then((data: CapturedPicture) => saveImage(data.uri, cup.id))
-                  .then(() => navigation.goBack())
-              }
+              onPress={() => takePictureAndGoBack(camera)}
               style={ styles.button }
             >
               <Ionicons name={'ios-camera'} size={40} color={'#673ab7'} />

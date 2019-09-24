@@ -1,16 +1,12 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useMappedState } from 'redux-react-hook';
 import { Button, Image } from 'react-native-elements';
+import { readDirectoryAsync } from 'expo-file-system';
 
 import CupHeader from '../components/CupHeader';
 import { ICup } from '../interfaces';
-
-
-
-import ICONS from '../utils/icons';
-
-
+import { dirPicutures } from '../utils/storageManager';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,10 +23,9 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   thumbnail: {
-    backgroundColor: '#fff',
-    marginRight: 10,
-    maxWidth: 64,
-    maxHeight: 64,
+    margin: 10,
+    width: 64,
+    height: 64,
   },
   controlsContainer: {
     flexDirection: 'row',
@@ -42,21 +37,39 @@ const styles = StyleSheet.create({
   }
 });
 
+const getPictures = (cupId) => {
+  if (cupId) {
+    const dir = `${dirPicutures}/${cupId}`;
+    return readDirectoryAsync(dir).then(pictures => pictures.map(p => `${dir}/${p}`));
+  } else {
+    return Promise.resolve([]);
+  }
+}
+
 interface Props {
   navigation: { navigate: Function };
 }
 const PicturesGallery = (props: Props) => {
   const cup: ICup = useMappedState(state => state.currentCup) || {};
   const { navigate } = props.navigation;
+  const [ pictures, setPictures ] = useState([]);
+  useEffect(() => {
+    getPictures(cup.id).then(pics => {
+      setPictures(pics)
+    })
+  },[cup]);
+
   return (
     <View style={styles.container}>
       <CupHeader cup={cup} />
-      <View style={styles.picutresContainer}>
-        {
-          // onPress={navigate to image gallery for this cup with this selected picture }
-          [1,2,3,4].map((i)=> <Image source={ICONS[i]} style={styles.thumbnail} key={i} />)
-        }
-      </View>
+      <ScrollView>
+        <View style={styles.picutresContainer}>
+          {
+            // onPress={navigate to image gallery for this cup with this selected picture }
+            pictures.map((p,i)=> <Image source={{ uri: p }} style={styles.thumbnail} key={i} />)
+          }
+        </View>
+      </ScrollView>
       <View style={styles.controlsContainer}>
         <Button 
           title={'Take Picture'}
