@@ -36,7 +36,7 @@
     "jest-environment-jsdom": "^24.9.0",
     "jest-enzyme": "^7.1.1",
     "jest-expo": "^34.0.1",
-    "jsdom": "^15.1.1",
+    "jsdom": "^16.5.0",
     "typescript": "^3.4.5"
   },
   "jest": {
